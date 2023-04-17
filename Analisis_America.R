@@ -7,7 +7,7 @@ library(ggplot2)
 
 setwd("~/Documentos/GitHub/America")
 
-america <- read.csv("America_Data.csv", header= TRUE, sep=",")
+#america <- read.csv("America_Data.csv", header= TRUE, sep=",")
 #Las siguientes lineas extraen la data del america se pueden usar para
 #Extraer la data de otros equipos del CSV MEX
 #Data <- read.csv("MEX.csv", header= TRUE, sep=",")
