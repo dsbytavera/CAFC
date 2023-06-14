@@ -116,8 +116,8 @@ america <- reemplazar_valor(america, "Rival", "Leones Negros", "UDG")
 #Las siguientes lineas crean un grafico de la proporcion de partidos ganados 
 #en cada año futbolistico.
 Plot_PPganados <- ggplot(america, aes(x=Season, y=PPganados, group=1))+
-  geom_line(color = wes_palette(n=1, name = "Moonrise1"))+
-  geom_point(color = wes_palette(n=1, name = "Moonrise1"))+
+  geom_line(color = wes_palette(n=1, name = "Zissou1"))+
+  geom_point(color = wes_palette(n=1, name = "Zissou1"))+
   ggtitle("Proporción de Partidos Ganados por Año Futbolístico")+
   xlab('Año Futbolístico') +
   ylab('Proporción Partidos Ganados')+
