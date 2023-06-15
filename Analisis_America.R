@@ -46,6 +46,22 @@ america <- america %>%
 america <- america %>%
   group_by(Season) %>% 
   mutate(JuGan=sum(Ganados)) 
+#Las siguientes linea crea una variable con el total de juegos ganados por año 
+#por año futbolistico separando juegos local y visita, despues el total de juegos
+#Local y el total visitante, para posteriormente calcular la proporcion de 
+#Partidos ganados como local y como visitante 
+
+america <- america %>% 
+  group_by(Season, HorA) %>%
+  mutate(JuGanHA = sum(Ganados))
+
+america <- america %>%
+  group_by(Season, HorA) %>% 
+  mutate(JueJuHA = n()) 
+
+america <- america%>%
+  group_by(Season, HorA) %>%
+  mutate(PpJuGanHA = JuGanHA/JueJuHA)
 
 #Las siguientes lineas crean una variable con los partidos ganados
 #por rival 
@@ -84,6 +100,7 @@ america <- america %>%
 america <- america %>%
   group_by(Season) %>% 
   mutate(PPganados = JuGan / JueJu)
+
 
 
 #Creando funcion para reemplazar un valor en un a columna. 
@@ -132,6 +149,32 @@ Plot_PPganados <- ggplot(america, aes(x=Season, y=PPganados, group=1))+
 
 Plot_PPganados
 ggsave(filename = "Plot_PPganados.pdf",
+       width =40 , height = 20, units = "cm", dpi = 600)
+
+# Grafico de la proporcion de partidos ganados comparando los resultados como 
+#Local y como visitante 
+Plot_PPganadosHA <- ggplot(america, aes(x=Season, y=PpJuGanHA, group=HorA))+
+  geom_line(aes(color = HorA))+
+  geom_point(aes(color = HorA))+
+  ggtitle("Proporción de Partidos Ganados Local Vs Visitante")+
+  xlab('Año Futbolístico') +
+  ylab('Proporción Partidos Ganados')+
+  theme(panel.background = element_rect(fill = "#000000"),
+        plot.background = element_rect(fill = "#000000"),
+        panel.grid = element_line(color="#272829"),
+        plot.title=element_text(hjust=0.5, color="#f0f8ff", family='mono', size=20),
+        axis.title.x=element_text(color="#f0f8ff", family='mono', size=15),
+        axis.title.y=element_text(color="#f0f8ff", family='mono', size=15),
+        axis.text = element_text(color="#f0f8ff", family='mono', size=10), 
+        legend.text = element_text(color="#f0f8ff", family='mono', size = 11),
+        legend.background = element_rect (fill= "#000000"))+
+        scale_color_manual(values= wes_palette("Darjeeling1", n = 3), 
+                           labels = c("Visitante", "Local"))
+       
+
+        Plot_PPganadosHA
+
+        ggsave(filename = "Plot_PPganadosHA.pdf",
        width =40 , height = 20, units = "cm", dpi = 600)
 
 
